@@ -25,23 +25,26 @@ samplingFile <- function(filename, prob) {
 } 
 
 #create the sample files for all three files
-samplingFile("blogs", 0.6) 
-samplingFile("news",0.6) 
-samplingFile("twitter",0.6)  
+samplingFile("blogs", 0.2) 
+samplingFile("news",0.2) 
+samplingFile("twitter",0.2)  
 
 #create the R Data frames for each line
 twitter_file <- file("sample_twitter.txt", "r") 
 twitterData <- readLines(twitter_file) 
 close(twitter_file) 
-save(twitterData, file = "twitterData.RData") 
+#save(twitterData, file = "twitterData.RData") 
 
 news_file <- file("sample_news.txt", "r")
 newsData <- readLines(news_file)
 close(news_file)
-save(newsData, file = "newsData.RData") 
+#save(newsData, file = "newsData.RData") 
 
 blogs_file <- file("sample_blogs.txt", "r")
 blogsData <- readLines(blogs_file)
 close(blogs_file)
-save(blogsData, file="blogsData.RData")
+#save(blogsData, file="blogsData.RData") 
+#for saving all datasets in a single RData structure
+Data <- c(twitterData,newsData,blogsData)
 
+save(Data,file="totalData.Rdata" )
