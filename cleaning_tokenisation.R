@@ -85,7 +85,28 @@ Data <- gsub("([Nn]ov\\.)|([Nn]ov )", "November ", Data)
 Data <- gsub("([Dd]ec\\.)|([Dd]ec )", "December ", Data)
 
 Data <- gsub("\\.+$", "", Data)
-Data <- gsub(" +", " ", Data)
+Data <- gsub(" +", " ", Data) 
+
+# separate out training and validation sets.
+set.seed(141122)
+sel <- rbinom(length(Data), 1, 0.6)
+sel <- (sel == 1)
+training <- Data[sel]
+validation <- Data[!sel] 
+
+file.create("training.txt")
+file.create("validation.txt") 
+con <- file('training.txt', "w")
+writeLines(training, con, sep = "\n")
+close(con) 
+con <- file('validation.txt', "w")
+writeLines(validation, con, sep = "\n")
+close(con)
+rm(sel)
+rm(validation)
+
+
+
 
 
 
