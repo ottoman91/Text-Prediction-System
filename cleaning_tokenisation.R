@@ -105,8 +105,18 @@ close(con)
 rm(sel)
 rm(validation)
 
+#create bi-grams and display on histogram
+Bigram<- NGramTokenizer(training, Weka_control(min = 2, max = 2))
+freq.Bigram <- data.frame(table(Bigram))
+sort.Bigram <- freq.Bigram[order(freq.Bigram$Freq,decreasing = TRUE),]
+Bigram_top10<-head(sort.Bigram,10)
+barplot(Bigram_top10$Freq, names.arg = Bigram_top10$Bigram, border=NA, las=2, main="Top 10 Most Frequent BiGrams", cex.main=2,col = "pink")
 
-
-
+#create tri-grams and display on histogram
+Trigram<- NGramTokenizer(dat, Weka_control(min = 3, max = 3))
+freq.Trigram <- data.frame(table(Trigram))
+sort.Trigram <- freq.Trigram[order(freq.Trigram$Freq,decreasing = TRUE),]
+Trigram_top10<-head(sort.Trigram,10)
+barplot(Trigram_top10$Freq, names.arg = Trigram_top10$Trigram, border=NA, las=2, main="Top 10 Most Frequent TriGrams", cex.main=2,col = "orange")
 
 
